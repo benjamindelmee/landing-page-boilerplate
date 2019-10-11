@@ -2,6 +2,10 @@ html {
     scroll-behavior: smooth;
 }
 
+.cta {
+    font-variant-caps: all-small-caps;
+}
+
 .masthead {
     height: 100vh;
     min-height: 500px;

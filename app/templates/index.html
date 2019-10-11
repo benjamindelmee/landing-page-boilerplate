@@ -30,7 +30,7 @@
         <div class="container">
             <a class="navbar-brand" href="#">{{ company_name }}</a>
             {% if call_to_action and call_to_action_link %}
-                <a class="btn btn-sm btn-secondary" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
+                <a class="btn btn-sm btn-secondary cta" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
             {% endif %}
         </div>
     </nav>
@@ -51,7 +51,7 @@
                                     <a class="btn btn-outline-secondary btn-lg" href="#section_1" role="button">{{ learn_more }}</a>
                                 {% endif %}                                
                                 {% if call_to_action and call_to_action_link %}
-                                    <a class="btn btn-secondary btn-lg" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
+                                    <a class="btn btn-secondary btn-lg cta" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
                                 {% endif %}
                             </p>
                         {% endif %}
