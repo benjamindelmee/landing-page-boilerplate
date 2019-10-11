@@ -1,5 +1,10 @@
 <!doctype html>
-<html lang="en">
+{% if lang %}
+    <html lang="{{ lang }}">
+{% else %}
+    <html>
+{% endif %}
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -8,14 +13,25 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
-    <title>Hello, world!</title>
+    
+    {% if page_title %}
+        <title>{{ page_title }}</title>
+    {% elif company_name %}
+        <title>{{ company_name }}</title>
+    {% endif %}
+
+    {% if page_description %}
+        <meta name="description" content="{{ page_description }}">
+    {% endif %}
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">La Mie du Monde</a>            
-            <a class="btn btn-sm btn-secondary" href="#" role="button">Call to action</a>
+            <a class="navbar-brand" href="#">{{ company_name }}</a>
+            {% if call_to_action and call_to_action_link %}
+                <a class="btn btn-sm btn-secondary" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
+            {% endif %}
         </div>
     </nav>
     
@@ -25,12 +41,20 @@
             <div class="row h-100 align-items-center">
                 <div class="jumbotron">
                     <div class="container">
-                        <h1 class="display-4">La Mie du Monde</h1>
-                        <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-                        <p class="lead">
-                            <a class="btn btn-outline-secondary btn-lg" href="#" role="button">Learn more</a>
-                            <a class="btn btn-secondary btn-lg" href="#" role="button">Call to action</a>
-                        </p>
+                        <h1 class="display-4">{{ headline }}</h1>
+                        {% if headline_sub %}
+                            <p class="lead">{{ headline_sub }}</p>
+                        {% endif %}
+                        {% if learn_more or call_to_action %}
+                            <p class="lead">
+                                {% if learn_more %}
+                                    <a class="btn btn-outline-secondary btn-lg" href="#section_1" role="button">{{ learn_more }}</a>
+                                {% endif %}                                
+                                {% if call_to_action and call_to_action_link %}
+                                    <a class="btn btn-secondary btn-lg" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
+                                {% endif %}
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -38,16 +62,16 @@
     </header>
     
     <!-- Page Content -->
-    <!-- <section class="py-5">
+    <section class="py-5" {% if learn_more %} id="section_1" {% endif %}>
         <div class="container">
             <h2 class="font-weight-light">Page Content</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
         </div>
-    </section> -->
+    </section>
 
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container text-center">
-            <small>Copyright &copy; Your Website</small>
+            <small>Copyright &copy; {{ company_name }}</small>
         </div>
     </footer>
 
