@@ -64,8 +64,20 @@
     <!-- Page Content -->
     <section class="py-5" {% if learn_more %} id="section_1" {% endif %}>
         <div class="container">
-            <h2 class="font-weight-light">Page Content</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus ab nulla dolorum autem nisi officiis blanditiis voluptatem hic, assumenda aspernatur facere ipsam nemo ratione cumque magnam enim fugiat reprehenderit expedita.</p>
+
+            {% if intro_title or intro_text %}
+                <div class="row">
+                    <div class="col">
+                        {% if intro_title %}
+                            <h2 class="text-center">{{ intro_title }}</h2>
+                        {% endif %}
+                        {% if intro_text %}
+                            <p class="lead text-center">{{ intro_text }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            
         </div>
     </section>
 
