@@ -41,7 +41,7 @@
             <div class="row h-100 align-items-center">
                 <div class="jumbotron">
                     <div class="container">
-                        <h1 class="display-4">{{ headline }}</h1>
+                        <h1>{{ headline }}</h1>
                         {% if headline_sub %}
                             <p class="lead">{{ headline_sub }}</p>
                         {% endif %}
@@ -64,20 +64,44 @@
     <!-- Page Content -->
     <section class="py-5" {% if learn_more %} id="section_1" {% endif %}>
         <div class="container">
-
             {% if intro_title or intro_text %}
                 <div class="row">
                     <div class="col">
                         {% if intro_title %}
-                            <h2 class="text-center">{{ intro_title }}</h2>
+                            <h2 class="text-center font-weight-light">{{ intro_title }}</h2>
                         {% endif %}
                         {% if intro_text %}
-                            <p class="lead text-center">{{ intro_text }}</p>
+                            <p class="lead text-justify" style="color: #767676;">{{ intro_text }}</p>
                         {% endif %}
                     </div>
                 </div>
+                <hr style="margin-bottom: 60px;">
             {% endif %}
-            
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{{ advantage_one_image }}" alt="{{ advantage_one_image_alt }}">
+                        <div class="card-body">
+                            <h3 class="card-title font-weight-bold lead" style="font-variant: small-caps;">{{ advantage_one_title }}</h3>
+                            <p class="card-text font-weight-light">{{ advantage_one_text }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{{ advantage_two_image }}" alt="{{ advantage_two_image_alt }}">
+                        <div class="card-body">
+                            <h3 class="card-title font-weight-bold lead" style="font-variant: small-caps;">{{ advantage_two_title }}</h3>
+                            <p class="card-text font-weight-light">{{ advantage_two_text }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
         </div>
     </section>
 
