@@ -1,9 +1,6 @@
 <!doctype html>
-{% if lang %}
-    <html lang="{{ lang }}">
-{% else %}
-    <html>
-{% endif %}
+
+<html {% if lang %} lang="{{ meta_lang }}" {% endif %}>
 
 <head>
     <!-- Required meta tags -->
@@ -14,23 +11,16 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     
-    {% if page_title %}
-        <title>{{ page_title }}</title>
-    {% elif company_name %}
-        <title>{{ company_name }}</title>
-    {% endif %}
-
-    {% if page_description %}
-        <meta name="description" content="{{ page_description }}">
-    {% endif %}
+    <title>{{ meta_title }}</title>
+    <meta name="description" content="{{ meta_description }}">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
         <div class="container">
             <a class="navbar-brand" href="#">{{ company_name }}</a>
-            {% if call_to_action and call_to_action_link %}
-                <a class="btn btn-sm btn-secondary cta" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
+            {% if btn_calltoaction_text %}
+                <a class="btn btn-sm btn-secondary cta" href="{{ btn_calltoaction_link }}" role="button">{{ btn_calltoaction_text }}</a>
             {% endif %}
         </div>
     </nav>
@@ -45,13 +35,13 @@
                         {% if headline_sub %}
                             <p class="lead">{{ headline_sub }}</p>
                         {% endif %}
-                        {% if learn_more or call_to_action %}
+                        {% if btn_learnmore_text or btn_calltoaction_text %}
                             <p class="lead">
-                                {% if learn_more %}
-                                    <a class="btn btn-outline-secondary btn-lg" href="#section_1" role="button">{{ learn_more }}</a>
+                                {% if btn_learnmore_text %}
+                                    <a class="btn btn-outline-secondary btn-lg" href="{{ btn_learnmore_link }}" role="button">{{ btn_learnmore_text }}</a>
                                 {% endif %}                                
-                                {% if call_to_action and call_to_action_link %}
-                                    <a class="btn btn-secondary btn-lg cta" href="{{ call_to_action_link }}" role="button">{{ call_to_action }}</a>
+                                {% if btn_calltoaction_text %}
+                                    <a class="btn btn-secondary btn-lg cta" href="{{ btn_calltoaction_link }}" role="button">{{ btn_calltoaction_text }}</a>
                                 {% endif %}
                             </p>
                         {% endif %}
@@ -62,57 +52,60 @@
     </header>
     
     <!-- Page Content -->
-    <section class="py-5" {% if learn_more %} id="section_1" {% endif %}>
-        <div class="container">
-            {% if intro_title or intro_text %}
-                <div class="row">
-                    <div class="col">
-                        {% if intro_title %}
-                            <h2 class="text-center font-weight-light">{{ intro_title }}</h2>
-                        {% endif %}
-                        {% if intro_text %}
-                            <p class="lead text-justify" style="color: #767676;">{{ intro_text }}</p>
-                        {% endif %}
+    {% if sections %}
+    {% for section in sections %}
+        {% if loop.index > 1 %}
+            <div class="container"><hr></div>
+        {% endif %}
+        <section class="py-5" id="section-{{ section.order }}">
+            {% if section.type == 'text' %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                            <h2 class="text-center font-weight-light">{{ section.title }}</h2>
+                            <p class="lead text-justify" style="color: #767676;">{{ section.paragraph }}</p>
+                        </div>
+                        <div class="col-lg-1"></div>
                     </div>
                 </div>
-                <hr style="margin-bottom: 60px;">
+            {% elif section.type == 'double_cards'%}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="card h-100">
+                                <img class="card-img-top" src="{{ section.left_card_image }}" alt="{{ section.left_card_image_alt }}">
+                                <div class="card-body">
+                                    <h3 class="card-title font-weight-bold lead" style="font-variant: small-caps;">{{ section.left_card_title }}</h3>
+                                    <p class="card-text font-weight-light">{{ section.left_card_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-4">
+                            <div class="card h-100">
+                                <img class="card-img-top" src="{{ section.right_card_image }}" alt="{{ section.right_card_image_alt }}">
+                                <div class="card-body">
+                                    <h3 class="card-title font-weight-bold lead" style="font-variant: small-caps;">{{ section.right_card_title }}</h3>
+                                    <p class="card-text font-weight-light">{{ section.right_card_text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2"></div>
+                    </div>
+                </div>
             {% endif %}
-        </div>
+        </section>
+    {% endfor %}
+    {% endif %}
 
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="{{ advantage_one_image }}" alt="{{ advantage_one_image_alt }}">
-                        <div class="card-body">
-                            <h3 class="card-title font-weight-bold lead" style="font-variant: small-caps;">{{ advantage_one_title }}</h3>
-                            <p class="card-text font-weight-light">{{ advantage_one_text }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <img class="card-img-top" src="{{ advantage_two_image }}" alt="{{ advantage_two_image_alt }}">
-                        <div class="card-body">
-                            <h3 class="card-title font-weight-bold lead" style="font-variant: small-caps;">{{ advantage_two_title }}</h3>
-                            <p class="card-text font-weight-light">{{ advantage_two_text }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2"></div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Page Footer -->
     <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
         <div class="container text-center">
             <small>Copyright &copy; {{ company_name }}</small>
         </div>
     </footer>
 
-    <!-- TODO: ajouter le template business. What do you do ? etc -->
-    
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
