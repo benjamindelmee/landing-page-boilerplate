@@ -10,6 +10,10 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    {% if sections %}
+        <!-- CSS for fade-in effects -->
+        <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    {% endif %}
     
     <title>{{ meta_title }}</title>
     <meta name="description" content="{{ meta_description }}">
@@ -56,9 +60,9 @@
         <div id="content" class="mb-4"></div>
     {% for section in sections %}
         {% if loop.index > 1 %}
-            <div class="container"><hr></div>
+            <div class="container" data-aos="fade-up"><hr></div>
         {% endif %}
-        <section class="py-5">
+        <section class="py-5" data-aos="fade-up">
             {% if section.type == 'text' %}
                 <div class="container">
                     <div class="row">
@@ -107,6 +111,18 @@
         </div>
     </footer>
 
+    {% if sections %}
+        <!-- JavaSript for fade-in effects -->
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script>
+            AOS.init({
+                offset: 200,
+                delay: 200,
+                duration:"1000",
+                once: true
+            });
+        </script>
+    {% endif %}
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
