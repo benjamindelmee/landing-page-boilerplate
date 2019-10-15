@@ -59,9 +59,6 @@
     {% if sections %}
         <div id="content" class="mb-4"></div>
     {% for section in sections %}
-        {% if loop.index > 1 %}
-            <div class="container" data-aos="fade-up"><hr></div>
-        {% endif %}
         <section class="py-5" data-aos="fade-up">
             {% if section.type == 'text' %}
                 <div class="container">
