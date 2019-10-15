@@ -12,7 +12,7 @@ def index():
         'btn_calltoaction_text': 'try it for free',
         'btn_calltoaction_link': 'https://typeform.com',
         'btn_learnmore_text': 'Learn more',
-        'btn_learnmore_link': '#section-1',
+        'btn_learnmore_link': '#content',
 
         'headline': 'Our product name',
         'headline_sub': 'The most advanced product in the world',
