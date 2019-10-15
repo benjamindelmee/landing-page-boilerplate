@@ -16,6 +16,7 @@ def index():
 
         'headline': 'Our product name',
         'headline_sub': 'The most advanced product in the world',
+        'background_url': 'https://source.unsplash.com/BtbjCFUvBXs/1920x1080',
 
         'sections': [
             {
